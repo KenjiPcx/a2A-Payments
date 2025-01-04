@@ -1,8 +1,6 @@
-# Welcome to your Lovable project
+# Agent to Agent Hackathon Portal project
 
 ## Project info
-
-**URL**: https://lovable.dev/projects/31abc091-214c-4660-8bdb-9c4fc274519b
 
 ## How can I edit this code?
 
