@@ -1,0 +1,42 @@
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  html, body, #root {
+    min-height: 100vh;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    background: radial-gradient(circle at center, rgb(5, 20, 11) 0%, rgb(1, 6, 3) 100%) !important;
+    background-attachment: fixed !important;
+    background-size: cover !important;
+    position: relative;
+  }
+  
+  /* Grid pattern overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+      radial-gradient(rgb(255 255 255 / 0.05) 1px, transparent 1px);
+    background-size: 24px 24px;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* Ensure content appears above grid */
+  #root {
+    position: relative;
+    z-index: 2;
+  }
+}
