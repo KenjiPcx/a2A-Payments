@@ -1,0 +1,12 @@
+pandas
+python-dotenv
+tavily-python
+llama-index
+pydantic
+beautifulsoup4
+requests
+llama-index-readers-web
+apify-client
+geocoder
+qdrant-client
+llama-index-vector-stores-qdrant
