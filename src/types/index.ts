@@ -1,20 +1,28 @@
-export type UserNode = {
-  name: string;
-  email?: string;
-  twitter?: string;
+export interface Coordinates {
   latitude: number;
   longitude: number;
-  type: string;
-  registrationTime: string;
-  status: string;
-  location?: string;
-  timeline?: {
-    event: string;
-    timestamp: string;
-    status?: string;
-    updatedBy?: string;
-  }[];
-};
+}
+
+export interface UserNode {
+  name: string;
+  email: string;
+  location: string;
+  coordinates?: Coordinates;
+  x_account?: string;
+  linkedin_url?: string;
+  highlights?: string[];
+  summary?: string;
+  profile_image_url?: string;
+  anonymous: boolean;
+  skills?: string[];
+  interests?: string[];
+}
+
+export interface UsersResponse {
+  users: UserNode[];
+  total: number;
+  message?: string;
+}
 
 export type Partner = {
   id: number;

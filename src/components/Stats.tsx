@@ -1,20 +1,29 @@
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
 
 const calculateDaysUntilLaunch = () => {
-  const launchDate = new Date('2025-01-25');
+  const launchDate = new Date("2025-01-25");
   const today = new Date();
   const diffTime = launchDate.getTime() - today.getTime();
   const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
   return diffDays;
 };
 
-const stats = [
-  { label: 'Builder Signups', value: '51' },
-  { label: 'Seats Remaining', value: '69' },
-  { label: 'Countdown to launch', value: `${calculateDaysUntilLaunch()} days` },
-];
+const totalSeats = 120;
 
-export const Stats = () => {
+interface StatsProps {
+  builderSignups: number;
+}
+
+export const Stats = ({ builderSignups }: StatsProps) => {
+  const daysUntilLaunch = calculateDaysUntilLaunch();
+  const stats = [
+    { label: "Builder Signups", value: builderSignups.toString() },
+    {
+      label: "Seats Remaining",
+      value: (totalSeats - builderSignups).toString(),
+    },
+    { label: "Countdown to launch", value: `${daysUntilLaunch} days` },
+  ];
   return (
     <div className="flex flex-wrap gap-4">
       {stats.map((stat, index) => (

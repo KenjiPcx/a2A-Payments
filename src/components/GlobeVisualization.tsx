@@ -1,7 +1,7 @@
-import React from 'react';
-import { Globe } from './Globe';
-import { ErrorBoundary } from 'react-error-boundary';
-import type { UserNode } from '@/types';
+import React from "react";
+import { Globe } from "./Globe";
+import { ErrorBoundary } from "react-error-boundary";
+import type { UserNode } from "@/types";
 
 const FallbackComponent = () => (
   <div className="w-full h-full flex items-center justify-center text-gray-400">
@@ -9,12 +9,18 @@ const FallbackComponent = () => (
   </div>
 );
 
-export const GlobeVisualization = ({ userNodes = [] }: { userNodes?: UserNode[] }) => {
+export const GlobeVisualization = ({
+  userNodes = [],
+  isRotating,
+}: {
+  userNodes?: UserNode[];
+  isRotating: boolean;
+}) => {
   return (
     <div className="w-full h-full relative">
       <div className="absolute inset-0">
         <ErrorBoundary FallbackComponent={FallbackComponent}>
-          <Globe userNodes={userNodes} />
+          <Globe userNodes={userNodes} isRotating={isRotating} />
         </ErrorBoundary>
       </div>
     </div>
