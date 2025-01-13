@@ -136,7 +136,7 @@ export const NodeList = ({ setIsRotating }: NodeListProps) => {
                       <p className="text-gray-400 mb-2">Hacker/Builder</p>
 
                       <div className="w-full mb-6">
-                        <div className="bg-[#18181B]/80 rounded-lg p-4 mb-4">
+                        {/* <div className="bg-[#18181B]/80 rounded-lg p-4 mb-4">
                           <div className="flex items-center justify-between">
                             <p className="text-gray-400 text-left">
                               Team Status
@@ -148,7 +148,7 @@ export const NodeList = ({ setIsRotating }: NodeListProps) => {
                               {"Looking for team"}
                             </Badge>
                           </div>
-                        </div>
+                        </div> */}
 
                         <div className="space-y-3">
                           {selectedNode.x_account && (
