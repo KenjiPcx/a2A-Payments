@@ -60,7 +60,7 @@ const Index = () => {
     handleInputChange,
     handleSubmit: originalHandleSubmit,
   } = useChat({
-    api: "http://localhost:8000/api/chat",
+    api: `${import.meta.env.VITE_API_URL}/api/chat`,
     onError: (error) => {
       console.error("Chat error:", error);
       alert("Failed to get response from chat");
