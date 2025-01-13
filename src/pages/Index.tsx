@@ -12,6 +12,7 @@ import { useChat } from "ai/react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
+import { Markdown } from "@/components/Markdown";
 
 const MemoizedGlobeVisualization = memo(GlobeVisualization);
 
@@ -153,11 +154,11 @@ const Index = () => {
               </div>
             )
           )}
-          <div className="text-sm">{message.content}</div>
+          <Markdown content={message.content} />
         </div>
       );
     }
-    return message.content;
+    return <Markdown content={message.content} />;
   };
 
   const chatContainerRef = useRef<HTMLDivElement>(null);
