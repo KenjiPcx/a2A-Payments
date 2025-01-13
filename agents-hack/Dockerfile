@@ -5,9 +5,11 @@ FROM node:20 AS frontend
 
 WORKDIR /app/frontend
 
-COPY .frontend /app/frontend
+# Install pnpm
+RUN corepack enable && corepack prepare pnpm@latest --activate
 
-RUN npm install && npm run build
+COPY .frontend /app/frontend
+RUN pnpm install && pnpm run build
 
 
 # ====================================
@@ -27,7 +29,7 @@ RUN curl -sSL https://install.python-poetry.org | POETRY_HOME=/opt/poetry python
 
 # Install Chromium for web loader
 # Can disable this if you don't use the web loader to reduce the image size
-RUN apt update && apt install -y chromium chromium-driver
+# RUN apt update && apt install -y chromium chromium-driver
 
 # Install dependencies
 COPY ./pyproject.toml ./poetry.lock* /app/

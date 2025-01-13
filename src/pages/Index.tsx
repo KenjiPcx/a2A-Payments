@@ -262,7 +262,7 @@ const Index = () => {
 
             {/* Right Column - Register Button and NodeList */}
             <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 w-full sm:w-auto">
-              <p className="text-sm font-light tracking-wider text-white/40 uppercase hidden sm:block">
+              <p className="text-sm font-light tracking-wider text-white/40 uppercase hidden sm:block justify-center items-center my-auto">
                 BRILLIANCE IS FORGED BY CONSTRAINTS
               </p>
               <div className="relative w-full sm:w-auto flex flex-col items-center">
