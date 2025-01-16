@@ -6,6 +6,7 @@ from qdrant_client import QdrantClient
 import os
 from typing import List, Optional, Tuple
 from pydantic import BaseModel
+from qdrant_client.models import Filter, FieldCondition, MatchValue
 
 from app.api.routers.events import EventCallbackHandler
 from app.api.routers.models import (
@@ -98,6 +99,7 @@ class User(BaseModel):
     anonymous: bool
     skills: Optional[List[str]] = []
     interests: Optional[List[str]] = []
+    team_status: Optional[str] = None
 
 class UsersResponse(BaseModel):
     users: List[User]
@@ -139,6 +141,7 @@ async def get_users():
                 anonymous=point.payload.get("anonymous", False),
                 skills=point.payload.get("skills", []),
                 interests=point.payload.get("interests", []),
+                team_status=point.payload.get("team_status", ""),
             )
             users.append(user)
                 
@@ -148,4 +151,45 @@ async def get_users():
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"Error fetching users: {str(e)}",
+        )
+
+class UpdateTeamStatusRequest(BaseModel):
+    email: str
+    team_status: str
+
+@r.post("/update-team-status")
+async def update_team_status(request: UpdateTeamStatusRequest):
+    try:
+        client = QdrantClient(
+            url=os.getenv("QDRANT_URL"),
+            api_key=os.getenv("QDRANT_API_KEY"),
+        )
+        
+        # Create filter to find user by email
+        filter = Filter(
+            must=[
+                FieldCondition(
+                    key="email",
+                    match=MatchValue(value=request.email)
+                )
+            ]
+        )
+        
+        # Update the team_status
+        res = client.set_payload(
+            collection_name=os.getenv("QDRANT_COLLECTION"),
+            payload={
+                "team_status": request.team_status
+            },
+            points=filter
+        )
+        
+        logger.info(f"Updated team status for user {request.email}: {res}")
+        
+        return {"message": f"Successfully updated team status for user {request.email}"}
+    except Exception as e:
+        logger.exception("Error updating team status in Qdrant", exc_info=True)
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Error updating team status: {str(e)}"
         )

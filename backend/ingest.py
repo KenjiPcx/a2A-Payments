@@ -78,7 +78,9 @@ def load_users(csv_path: str) -> List[UserProfile]:
                 x_account=str(row['x']).strip(),
                 linkedin_url=str(row['Linkedin']).strip(),
                 # Mark as anonymous if missing crucial fields
-                anonymous=not (str(row['Linkedin']).strip() or str(row['x']).strip())
+                anonymous=not (str(row['Linkedin']).strip() or str(row['x']).strip()),
+                skills=[str(row['Skills']).strip()],
+                highlights=[str(row['Highlights']).strip()],
             )
             users.append(user)
             
@@ -109,12 +111,14 @@ def process_users(users: List[UserProfile]) -> List[UserProfile]:
             # Scrape LinkedIn if URL provided
             if user.linkedin_url:
                 profile_data = scrape_linkedin_profile(user.linkedin_url)
-                if profile_data:
+                if profile_data or len(user.skills) > 0 or len(user.highlights) > 0:
                     profile_json = json.loads(profile_data)
                     
                     # Extract highlights and summary using LLM
                     highlights_prompt = f"""Extract key professional highlights and a summary from this LinkedIn profile:
                     {json.dumps(profile_json, indent=2)}
+                    Showcase skills from {user.skills}
+                    Showcase highlights from {user.highlights}
                     
                     Focus on:
                     1. Technical achievements
@@ -320,7 +324,7 @@ def ingest_to_qdrant(users: List[UserProfile]):
 if __name__ == "__main__":
     
     csv_path = "/home/kenji/agents-community/a2A-Payments/Agent to Agent PAYMENT$ hackathon - Guests - 2025-01-11-16-27-14 - Agent to Agent PAYMENT$ hackathon - Guests - 2025-01-11-16-27-14.csv.csv"
-    users = load_users(csv_path)[50:]
+    users = load_users(csv_path)[74:]
     
     processed_users = process_users(users)
     logger.info(f"Processing complete. {len(processed_users)} users passed confidence threshold") 
