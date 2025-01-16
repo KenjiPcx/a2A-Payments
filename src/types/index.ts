@@ -16,6 +16,7 @@ export interface UserNode {
   anonymous: boolean;
   skills?: string[];
   interests?: string[];
+  team_status?: string;
 }
 
 export interface UsersResponse {
@@ -29,6 +30,9 @@ export type Partner = {
   image: string;
   name: string;
   twitter?: string;
+  website?: string;
+  linkedin?: string;
+  type?: string;
 };
 
 export type Node = {

@@ -13,6 +13,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Markdown } from "@/components/Markdown";
+import { Badge } from "@/components/ui/badge";
 
 const MemoizedGlobeVisualization = memo(GlobeVisualization);
 
@@ -102,53 +103,66 @@ const Index = () => {
               <div key={index} className="space-y-2">
                 {annotation.type === "sources" && annotation.data.nodes && (
                   <div className="grid grid-cols-1 gap-2">
-                    {annotation.data.nodes.map((node, nodeIndex) => (
-                      <Card
-                        key={nodeIndex}
-                        className="bg-white/5 hover:bg-white/10 transition-colors cursor-pointer"
-                        onClick={() => handleUserCardClick(node.metadata)}
-                      >
-                        <CardContent className="p-4 flex flex-col space-y-3">
-                          {/* User info row */}
-                          <div className="flex items-center space-x-4">
-                            <Avatar className="h-10 w-10">
-                              <AvatarImage
-                                src={node.metadata.profile_image_url}
-                              />
-                              <AvatarFallback>
-                                {node.metadata.name[0]}
-                              </AvatarFallback>
-                            </Avatar>
-                            <div className="flex-1 min-w-0">
-                              <p className="text-sm font-medium truncate">
-                                {node.metadata.name}
-                              </p>
-                              <p className="text-xs text-gray-400 truncate">
-                                {node.metadata.location}
-                              </p>
-                            </div>
-                            <div className="text-xs text-gray-400">
-                              Score: {Math.round(node.score * 100)}%
-                            </div>
-                          </div>
-
-                          {/* Skills row */}
-                          {node.metadata.skills &&
-                            node.metadata.skills.length > 0 && (
-                              <div className="flex flex-wrap gap-1">
-                                {node.metadata.skills.map((skill, i) => (
-                                  <span
-                                    key={i}
-                                    className="px-2 py-0.5 text-xs rounded-full bg-white/10 text-white/80"
-                                  >
-                                    {skill}
-                                  </span>
-                                ))}
+                    {annotation.data.nodes.map((node, nodeIndex) => {
+                      const user = userNodes!.find(
+                        (user) => user.email === node.metadata.email
+                      );
+                      return (
+                        <Card
+                          key={nodeIndex}
+                          className="bg-white/5 hover:bg-white/10 transition-colors cursor-pointer"
+                          onClick={() => handleUserCardClick(user)}
+                        >
+                          <CardContent className="p-4 flex flex-col space-y-3">
+                            {/* User info row */}
+                            <div className="flex items-center space-x-4">
+                              <Avatar className="h-10 w-10">
+                                <AvatarImage
+                                  src={node.metadata.profile_image_url}
+                                />
+                                <AvatarFallback>
+                                  {node.metadata.name[0]}
+                                </AvatarFallback>
+                              </Avatar>
+                              <div className="flex-1 min-w-0">
+                                <p className="text-sm font-medium truncate">
+                                  {node.metadata.name}
+                                </p>
+                                <p className="text-xs text-gray-400 truncate">
+                                  {node.metadata.location}
+                                </p>
                               </div>
-                            )}
-                        </CardContent>
-                      </Card>
-                    ))}
+                              <div className="text-xs text-gray-400">
+                                Score: {Math.round(node.score * 100)}%
+                              </div>
+                            </div>
+
+                            {/* Skills row */}
+                            <span>
+                              <Badge
+                                variant="secondary"
+                                className="bg-[#1a4731] text-[#D3E4FD] border-0 rounded-md px-3 py-1 hover:bg-[#1a4731]"
+                              >
+                                {user?.team_status || "Looking for team"}
+                              </Badge>
+                            </span>
+                            {node.metadata.skills &&
+                              node.metadata.skills.length > 0 && (
+                                <div className="flex flex-wrap gap-1">
+                                  {node.metadata.skills.map((skill, i) => (
+                                    <span
+                                      key={i}
+                                      className="px-2 py-0.5 text-xs rounded-full bg-white/10 text-white/80"
+                                    >
+                                      {skill}
+                                    </span>
+                                  ))}
+                                </div>
+                              )}
+                          </CardContent>
+                        </Card>
+                      );
+                    })}
                   </div>
                 )}
               </div>
@@ -206,7 +220,7 @@ const Index = () => {
                     <input
                       value={input}
                       onChange={handleInputChange}
-                      placeholder="Search for users..."
+                      placeholder="Search for users... or chat with AI"
                       className="flex h-10 w-3/5 rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                     />
                     <button

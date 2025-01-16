@@ -15,7 +15,7 @@ export const Partners = ({ onPartnerClick }: PartnersProps) => {
   // Function to determine if a logo should be circular
   const shouldBeCircular = (index: number) => {
     // Make logos at index 2, 3, 4, 5 circular (0-based index)
-    return index >= 2 && index <= 5;
+    return (index >= 2 && index <= 5) || index === 7 || index === 8;
   };
 
   return (
