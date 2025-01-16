@@ -57,7 +57,6 @@ export const NodeList = ({ setIsRotating }: NodeListProps) => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [newStatus, setNewStatus] = useState("");
   const { openUpdateStatus } = useModal();
-  const { selectedUser, setSelectedUser } = useUser();
 
   const queryClient = useQueryClient();
   const mutation = useMutation({
