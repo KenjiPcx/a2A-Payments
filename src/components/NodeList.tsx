@@ -18,7 +18,6 @@ import { toast, useToast } from "@/hooks/use-toast";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { updateTeamStatus } from "@/api/users";
 import { useModal } from "@/providers/ModalProvider";
-import { useUser } from "@/providers/UserProvider";
 
 // Helper function to extract usernames (can be moved to utils)
 const extractTwitterUsername = (url: string): string => {
@@ -59,7 +58,7 @@ export const NodeList = ({ setIsRotating }: NodeListProps) => {
   const [newStatus, setNewStatus] = useState("");
   const { openUpdateStatus } = useModal();
   const { selectedUser, setSelectedUser } = useUser();
-  
+
   const queryClient = useQueryClient();
   const mutation = useMutation({
     mutationFn: updateTeamStatus,
