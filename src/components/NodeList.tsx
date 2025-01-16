@@ -80,13 +80,6 @@ export const NodeList = ({ setIsRotating }: NodeListProps) => {
   });
 
   useEffect(() => {
-    if (selectedUser) {
-      setSelectedNode(selectedUser);
-      setSelectedPartner(null);
-    }
-  }, [selectedUser]);
-
-  useEffect(() => {
     const handleNodeSelected = (event: CustomEvent) => {
       if (event.detail.userData) {
         console.log(event.detail.userData);
