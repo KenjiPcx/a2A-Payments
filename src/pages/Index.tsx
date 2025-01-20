@@ -294,6 +294,18 @@ const Index = () => {
                   <NodeList setIsRotating={setIsGlobeRotating} />
                 </div>
               </div>
+              <a
+                href="https://discord.gg/jgC9fsFW"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center rounded-full w-10 h-10 bg-[#5865F2] hover:bg-[#5865F2]/90 transition-colors"
+              >
+                <img
+                  src="/images/discord-logo.png"
+                  alt="Discord"
+                  className="w-10 h-10"
+                />
+              </a>
             </div>
           </div>
         </div>
