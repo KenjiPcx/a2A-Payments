@@ -52,6 +52,20 @@ export const partners: Partner[] = [
     type: "Partner",
   },
   {
+    id: 10,
+    image: "/images/xPunks.png",
+    name: "xPunks",
+    twitter: "https://shor.by/s1fQ",
+    type: "Partner",
+  },
+  {
+    id: 11,
+    image: "/images/masumi.png",
+    name: "Masumi",
+    twitter: "https://www.masumi.network/",
+    type: "Partner",
+  },
+  {
     id: 8,
     image: "/images/mei-chan-logo.jpg",
     name: "Mei Chan",
