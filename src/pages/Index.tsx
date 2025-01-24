@@ -294,7 +294,7 @@ const Index = () => {
                   <NodeList setIsRotating={setIsGlobeRotating} />
                 </div>
               </div>
-              <a
+              {/* <a
                 href="https://discord.gg/jgC9fsFW"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -305,7 +305,7 @@ const Index = () => {
                   alt="Discord"
                   className="w-10 h-10"
                 />
-              </a>
+              </a> */}
             </div>
           </div>
         </div>
